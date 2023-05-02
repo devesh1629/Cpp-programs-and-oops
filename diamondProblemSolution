@@ -1,3 +1,57 @@
+/*
+
+DIAMOND PROBLEM
+When a class has 2 derived classes, and both the derived class share a common 2nd level derived class, 
+the child class recives 2 copies of every attributes of its grandparent class.
+This causes ambiguity.
+*/
+
+// Consider this example
+# include <iostream>  
+using namespace std ;  
+class Base {  
+// Data members of Base class  
+public :  
+    Base ( int a ) { cout << " Base :: Base ( int ) called " << endl ; }  
+} ;  
+class Derived : public Base {  
+// data members of Derived  
+public :  
+    Derived ( int a ) : Base ( a ) {  
+    cout << " Derived :: Derived ( int ) called " << endl ;  
+    }  
+} ;  
+class Derived_2 : public Base {  
+// data members of Derived_2  
+public :  
+    Derived_2 ( int a ) : Base ( a ) {  
+        cout << " Derived_2 :: Derived_2 ( int ) called " << endl ;  
+    }  
+} ;  
+class Result : public Derived , public Derived_2 {  
+public :  
+    Result ( int a ) : Derived_2 ( a ) , Derived ( a ) {  
+        cout << " Result :: Result ( int ) called " << endl ;  
+    }  
+} ;  
+int main () {  
+    Result rs1 ( 30 ) ;  
+}  
+
+/*
+The output of above code is :
+Base :: Base ( int ) called
+Derived :: Derived ( int ) called
+Base :: Base ( int ) called
+Derived_2 :: Derived_2 ( int ) called
+Result :: Result ( int ) called
+
+Here we can see that base class is called twice.
+
+By declaring the 2 intermediate derived classes as virtual, this problem can be solved.
+*/
+
+
 # include <iostream>  
 using namespace std ;  
 class Base {  
@@ -26,3 +80,11 @@ cout << " Result :: Result ( int ) is called " << endl ;
 int main ( ) {  
 Result rs1 ( 30 ) ;  
 }  
+
+/*
+The output of above code is:
+Base :: Base ( int ) is called
+Derived :: Derived ( int ) is called
+Derived_1 :: Derived_1 ( int ) is called
+Result :: Result ( int ) is called
+*/

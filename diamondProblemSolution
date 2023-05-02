@@ -1,0 +1,28 @@
+# include <iostream>  
+using namespace std ;  
+class Base {  
+public :  
+Base ( int a ) { cout << " Base :: Base ( int ) is called " << endl ; }  
+Base () { cout << " Base :: Base ( ) is called " << endl ; }  
+} ;  
+class Derived : virtual public Base {  
+public :  
+Derived ( int a ) : Base ( a ) {  
+cout << " Derived :: Derived ( int ) is called " << endl ;  
+}  
+} ;  
+class Derived_1 : virtual public Base {  
+public :  
+Derived_1 ( int a ) : Base( a ) {  
+cout << " Derived_1 :: Derived_1 ( int ) is called " << endl ;  
+}  
+} ;  
+class Result : public Derived_1 , public Derived {  
+public :  
+Result ( int a ) : Derived ( a ) , Derived_1 ( a ) {  
+cout << " Result :: Result ( int ) is called " << endl ;  
+}  
+} ;   
+int main ( ) {  
+Result rs1 ( 30 ) ;  
+}  
